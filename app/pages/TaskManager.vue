@@ -3,31 +3,24 @@ import ListItem from '~/components/common/ListItem.vue';
 import Task from '~/components/ui/tasks-item/Task.vue';
 
 // DB
-const tasks = [
-  {
-    id: "asdffasd",
-    titulo: "Tarea1",
-    descripcion: "",
-    prioridad: "Alta",
-    estado: "Pendiente",
-    fechaVencimiento: "2026-02-27T00:00:00.000+00:00",
-  },
-  {
-    id: "asdffasd",
-    titulo: "Tarea2",
-    descripcion: "AHHH",
-    prioridad: "Media",
-    estado: "Completado",
-    fechaVencimiento: "2026-02-27T00:00:00.000+00:00",
-  },
-]
+const tasks = await $fetch('http://localhost:3001/tasks')
 
+function deleteTask(task: any) {
+  console.log("delete", task)
+}
+
+function editTask(task: any) {
+  console.log("edit", task)
+}
 </script>
 
 <template>
   <GPageContainer>
     <template v-for="task in tasks">
-      <ListItem>
+      <ListItem
+        @delete="deleteTask(task)"
+        @edit="editTask(task)"
+      >
         <Task :task="task"></Task>
       </ListItem>
     </template>
